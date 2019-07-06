@@ -10,4 +10,9 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
         // Assert/Confirm that value returned from add() is 8
         $this->assertEquals(8, add(5, 3));
     }
+    
+    // Testing that a function does not return false result
+    public function testAddDoesntReturnFalseSum() {
+        $this->assertNotEquals(5, add(2, 2));
+    }
 }
