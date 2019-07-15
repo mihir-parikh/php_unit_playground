@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- bootstrap flag allows you to run some code before running the tests -->
+<phpunit colors="true" verbose="true" bootstrap="vendor/autoload.php">
+    <!-- Specify which Test classes to run, which is referred to as a testsuite -->
+    <testsuites>
+        <testsuite name="Test suite label">
+            <!-- This will run all the classes ending with 'Test' inside '/tests' directory -->
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
