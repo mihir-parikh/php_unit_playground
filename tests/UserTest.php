@@ -23,6 +23,12 @@ class UserTest extends TestCase {
     
     public function testNotificationIsSent() {
         $user = new User();
+        // We do not want to use the real Mailer class. Instead we want to use a mock dependent object
+        $mock_mailer = $this->createMock(Mailer::class);
+        // The real Mailer->sendMail() returns TRUE, hence the fake Mailer->sendMail() should also 
+        // return TRUE, instead of the default NULL
+        $mock_mailer->method('sendMail')->willReturn(TRUE);
+        $user->setMailer($mock_mailer);
         $user->email = 'test@test.com';
         $this->assertTrue($user->notify("test"));
         
