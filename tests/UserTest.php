@@ -20,4 +20,11 @@ class UserTest extends TestCase {
         $user = new User();
         $this->assertEquals('', $user->getFullName());
     }
+    
+    public function testNotificationIsSent() {
+        $user = new User();
+        $user->email = 'test@test.com';
+        $this->assertTrue($user->notify("test"));
+        
+    }
 }
