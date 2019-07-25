@@ -27,10 +27,21 @@ class UserTest extends TestCase {
         $mock_mailer = $this->createMock(Mailer::class);
         // The real Mailer->sendMail() returns TRUE, hence the fake Mailer->sendMail() should also 
         // return TRUE, instead of the default NULL
-        $mock_mailer->method('sendMail')->willReturn(TRUE);
+        $mock_mailer->expects($this->once())->method('sendMail')->with($this->equalTo('test@test.com'), $this->equalTo('test'))->willReturn(TRUE);
+        // Use the fake Mailer class instead of the original
         $user->setMailer($mock_mailer);
         $user->email = 'test@test.com';
         $this->assertTrue($user->notify("test"));
         
+    }
+    
+    public function testCannotNotifyUserWithNoEmail() {
+        $user = new User();
+        // Create a fake object of Mailer class
+        $mock_mailer = $this->getMockBuilder(Mailer::class)->setMethods(null)->getMock();
+        // All the methods will be called on the fake Mailer object and not the real one
+        $user->setMailer($mock_mailer);
+        $this->expectException(Exception::class);
+        $user->notify("Hello");
     }
 }
