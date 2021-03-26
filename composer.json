@@ -6,5 +6,8 @@
         "psr-4": {
             "": "src/"
         }
+    },
+    "require": {
+        "mockery/mockery": "^1.3"
     }
 }
